@@ -22,12 +22,47 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@models/*": [
+        "./src/app/models/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@auth/*": [
+        "./src/app/pages/auth/*"
+      ],
+      "@boards/*": [
+        "./src/app/pages/boards/*"
+      ],
+      "@environments/*": [
+        "./src/environments/*"
+      ],
+      "@guards/*": [
+        "./src/app/guards/*"
+      ],
+      "@interceptors/*": [
+        "./src/app/interceptors/*"
+      ],
+      "@profile/*": [
+        "./src/app/pages/profile/*"
+      ],
+      "@services/*": [
+        "./src/app/services/*"
+      ],
+      "@users/*": [
+        "./src/app/pages/users/*"
+      ],
+      "@utils/*": [
+        "./src/app/utils/*"
+      ]
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+    "strictTemplates": true,
+  },
 }

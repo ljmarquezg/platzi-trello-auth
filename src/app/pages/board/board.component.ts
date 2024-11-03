@@ -8,9 +8,6 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
-import { NavbarComponent } from "../../components/navbar/navbar.component";
-import ToDo, { Column } from "../../models/todo.model";
-import { BtnComponent } from "../../components/btn/btn.component";
 import {
   faAngleDown,
   faEllipsis,
@@ -20,12 +17,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { CdkOverlayOrigin, OverlayModule } from "@angular/cdk/overlay";
 import { Dialog } from "@angular/cdk/dialog";
-import { CommonModule } from "@angular/common";
+
 import { CdkAccordion, CdkAccordionItem } from "@angular/cdk/accordion";
 import { FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { ColumnComponent } from "../../components/column/column.component";
-import { TodoDialogComponent } from "../../components/todo-dialog/todo-dialog.component";
+import { NavbarComponent } from "@shared/navbar/navbar.component";
+import ToDo, { Column } from "@models/todo.model";
+import { BtnComponent, } from "@shared/btn/btn.component";
+import { ColumnComponent } from "./components/column/column.component";
+import { TodoDialogComponent } from "../board/components/todo-dialog/todo-dialog.component";
 
 @Component({
   selector: "app-board",
@@ -34,7 +34,6 @@ import { TodoDialogComponent } from "../../components/todo-dialog/todo-dialog.co
     DragDropModule,
     FontAwesomeModule,
     OverlayModule,
-    CommonModule,
     ReactiveFormsModule,
     CdkDrag,
     CdkDropListGroup,
@@ -45,8 +44,8 @@ import { TodoDialogComponent } from "../../components/todo-dialog/todo-dialog.co
     CdkAccordionItem,
     ColumnComponent,
     NavbarComponent,
-    BtnComponent,
-  ],
+    BtnComponent
+],
   templateUrl: "./board.component.html",
   styles: [
     `

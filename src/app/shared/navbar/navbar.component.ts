@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, signal, WritableSignal } from '@angular/core';
 import {OverlayModule} from '@angular/cdk/overlay';
-import { BtnComponent } from '../btn/btn.component';
+import { BtnComponent } from '../../shared/btn/btn.component';
 import {faAngleDown, faBars, faBell, faSearch} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileComponent } from "../profile/profile.component";
@@ -10,7 +10,6 @@ import { ProfileComponent } from "../profile/profile.component";
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    CommonModule,
     BtnComponent,
     ProfileComponent,
     OverlayModule,

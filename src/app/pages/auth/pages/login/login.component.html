@@ -1,0 +1,20 @@
+<div class="w-screen h-screen bg-white sm:bg-gray-50 relative">
+  <app-background></app-background>
+  <div class="relative w-full sm:w-7/12 md:w-6/12 lg:w-4/12 m-auto">
+    <app-header></app-header>
+    <div class="bg-white rounded shadow-none sm:shadow-lg py-4 px-4 md:px-9">
+      <div class="mb-4">
+        <app-login-form></app-login-form>
+      </div>
+      <div class="text-center pt-4 text-sm">
+        <a routerLink="/forgot-password" class="text-blue-500">Can't login?</a> · <a routerLink="/register" class="text-blue-500">Create an account</a>
+      </div>
+      <div class="border border-b-gray-50 w-full mt-4 mb-4"></div>
+      <div class="text-center pt-4"><img class="w-40 m-auto" src="/assets/images/logo/logo-atlassian-gray.png"></div>
+      <div class="text-center pt-4 text-xs">One account for Trello, Jira, Confluence and more.</div>
+      <div class="text-center pt-4 text-xs"><a routerLink="/policy">Privacy Policy</a> · <a href="#">User Notice</a></div>
+      <div class="text-center pt-4 text-xs">This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

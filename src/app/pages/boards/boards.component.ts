@@ -20,10 +20,10 @@ import {
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTrello } from "@fortawesome/free-brands-svg-icons";
-import { NavbarComponent } from "../../components/navbar/navbar.component";
-import { BoardCardComponent } from "../../components/board-card/board-card.component";
-import { BtnComponent } from "../../components/btn/btn.component";
-import { AccordionItem } from "../../models/accordeon.model";
+import { BtnComponent } from "@shared/btn/btn.component";
+import { NavbarComponent } from "@shared/navbar/navbar.component";
+import { AccordionItem } from "@models/accordeon.model";
+import { BoardCardComponent } from "../board/components/board-card/board-card.component";
 
 export interface ExpandStatus {
   visible: string;

@@ -16,6 +16,7 @@ export class BtnComponent {
   @Input() color: ColorClassOptions = 'default';
   @Input() size?: 'lg' | 'md' |'sm' | 'xs';
   @Input() textAlign: 'left' | 'center' | 'right' = 'center';
+  @Input() loading = false;
   
   btnSize = {
     lg: 'px-6 py-3 text-lg',

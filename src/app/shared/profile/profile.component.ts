@@ -1,16 +1,15 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { BtnComponent } from '../btn/btn.component';
+import { BtnComponent } from '../../shared/btn/btn.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     BtnComponent,
-    OverlayModule,
-    CommonModule
-  ],
+    OverlayModule
+],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent {
