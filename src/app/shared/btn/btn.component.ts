@@ -15,7 +15,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './btn.component.html'
 })
 export class BtnComponent {
-  @Input() type: 'submit' | 'button' | 'reset' = 'button';
+  @Input() typeBtn: 'submit' | 'button' | 'reset' = 'button';
   @Input() color: ColorClassOptions = 'default';
   @Input() size?: 'lg' | 'md' |'sm' | 'xs';
   @Input() textAlign: 'left' | 'center' | 'right' = 'center';
