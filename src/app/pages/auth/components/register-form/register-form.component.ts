@@ -6,7 +6,8 @@ import { CustomValidators } from '@utils/validators';
 import { BtnComponent } from "@shared/btn/btn.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from '@services/auth.service';
-import { RequestStatus } from '@models/request-status.model';
+import { RequestResponse, RequestStatus } from '@models/request-status.model';
+import { query } from 'express';
 
 @Component({
   selector: 'app-register-form',
@@ -24,6 +25,11 @@ export class RegisterFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);
 
+  formUser = this.formBuilder.nonNullable.group({
+    email: ['', [Validators.email, Validators.required]],
+  });
+  statusUser: RequestStatus = 'init';
+
   form = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.email, Validators.required]],
@@ -33,13 +39,13 @@ export class RegisterFormComponent {
     validators: [ CustomValidators.MatchValidator('password', 'confirmPassword') ]
   });
   status: RequestStatus = 'init';
+  showRegister: boolean = false;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   showPassword = false;
   errorMessage: string = '';
 
   register() {
-    console.log('test');
     if (this.form.valid) {
       this.status = 'loading';
       const { name, email, password } = this.form.getRawValue();
@@ -47,18 +53,39 @@ export class RegisterFormComponent {
         next: () => {
             this.router.navigate(['/login']);
         },
-        error: (error) => {
+        error: (error: RequestResponse) => {
           this.status = 'failed';
           if(error.error.name === 'QueryFailedError') {
             this.errorMessage = 'Email already exists';
           } else {
             this.errorMessage = error.error.message;
           }
-          console.log(error);
         }
       });
     } else {
       this.form.markAllAsTouched();
+    }
+  }
+
+  validate() {
+    if(this.formUser.valid){
+      const {email} =  this.formUser.getRawValue();
+      this.authService.isAvailable(email).subscribe({
+        next: (response) => {
+          if(response.isAvailable) {
+            this.showRegister = true;
+          } else {
+            this.authService.setCredentials(email, '');
+            this.router.navigate(['/login'], {
+              queryParams: {email}
+            });
+          }
+      }, error: (error) => {
+
+      }
+    });
+    } else {
+      this.formUser.markAllAsTouched();
     }
   }
 }

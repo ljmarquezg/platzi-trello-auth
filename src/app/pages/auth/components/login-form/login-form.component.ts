@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { Router, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { BtnComponent } from "../../../../shared/btn/btn.component";
 import { BackgroundComponent } from "../background/background.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService
 
  } from '@services/auth.service';
-import { RequestStatus } from '@models/request-status.model';
+import { RequestResponse, RequestStatus } from '@models/request-status.model';
 @Component({
   selector: 'app-login-form',
   standalone: true,
@@ -25,19 +25,29 @@ export class LoginFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   
   form = this.formBuilder.nonNullable.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [ Validators.required, Validators.minLength(8)]],
+    password: ['', [ Validators.required, Validators.minLength(6)]],
   });
+
   faPen = faPen;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   showPassword = false;
   status: RequestStatus = 'init';
 
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const email = params['email'];
+      if(email) {
+        this.form.patchValue({email});
+      }
+    });
+  }
+
   doLogin() {
-    console.log(this.form);
     if(this.form.valid) {
       this.status = 'loading';
       const {email, password} = this.form.getRawValue();
@@ -46,8 +56,9 @@ export class LoginFormComponent {
             this.status = 'success';
             this.router.navigate(['/app']);
           },
-          error: () => {
+          error: (error: RequestResponse) => {
             this.status = 'failed';
+            console.log(error);
           }
       });
     } else {
