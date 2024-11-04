@@ -49,9 +49,9 @@ export class RegisterFormComponent {
     if (this.form.valid) {
       this.status = 'loading';
       const { name, email, password } = this.form.getRawValue();
-      this.authService.register(name, email, password).subscribe({
+      this.authService.registerAndLogin(name, email, password).subscribe({
         next: () => {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/app/boards']);
         },
         error: (error: RequestResponse) => {
           this.status = 'failed';
@@ -74,8 +74,8 @@ export class RegisterFormComponent {
         next: (response) => {
           if(response.isAvailable) {
             this.showRegister = true;
+            this.form.patchValue({email});
           } else {
-            this.authService.setCredentials(email, '');
             this.router.navigate(['/login'], {
               queryParams: {email}
             });
