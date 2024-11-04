@@ -53,6 +53,10 @@
       <p class="font-medium text-red-500 text-xs mt-1 ml-1">The password are not the same</p>
     }
   }
+
+  @if(status === 'failed') {
+    <p class="bg-red-100 text-red-500 p-2 rounded-md text-center mb-4">Chapapote!{{errorMessage}}</p>
+  }
   <div>
     <app-btn
       typeBtn="submit"

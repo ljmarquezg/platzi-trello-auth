@@ -17,3 +17,8 @@ export type RequestResponse = {
     message: string,
     error: SQLError
 };
+
+export type RecoveryTokenResponse = {
+    link: string,
+    token: string
+}

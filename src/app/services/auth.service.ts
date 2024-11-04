@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {environment} from '@environments/environment';
+import { RecoveryTokenResponse } from '@models/request-status.model';
 import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
@@ -47,6 +48,20 @@ export class AuthService {
     return this.http.post<{isAvailable: boolean}>(
       `${this.apiUrl}/api/v1/auth/is-available`,
       { email }
+    );
+  }
+
+  recovery(email: string): Observable<RecoveryTokenResponse> {
+    return this.http.post<RecoveryTokenResponse>(
+      `${this.apiUrl}/api/v1/auth/recovery`,
+      { email }
+    );
+  }
+
+  changePassword(token: string, newPassword: string): Observable<RecoveryTokenResponse> {
+    return this.http.post<RecoveryTokenResponse>(
+      `${this.apiUrl}/api/v1/auth/change-password`,
+      { token, newPassword }
     );
   }
 }
