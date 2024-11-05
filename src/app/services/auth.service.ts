@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import {environment} from '@environments/environment';
 import { RecoveryTokenResponse } from '@models/request-status.model';
 import { LoginResponse } from '@models/auth.model';
 import { Observable, switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
+import { User } from '@models/users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
   private http: HttpClient = inject(HttpClient);
   private tokenService: TokenService = inject(TokenService);
   private router: Router = inject(Router);
+  user: WritableSignal<User | null> = signal(null);
 
   apiUrl = environment.API_URL;
   credentials!: {
@@ -78,5 +80,22 @@ export class AuthService {
   logout() {
     this.tokenService.removeToken();
     this.router.navigate(['/login']);
+  }
+
+  getProfile(): Observable<User>{
+    const token = this.tokenService.getToken();
+    return this.http.get<User>(`${this.apiUrl}/api/v1/auth/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    ).pipe(
+      tap(user => this.user.set(user))
+    )
+  }
+
+  getDataUser(): User | null {
+    return this.user();
   }
 }
