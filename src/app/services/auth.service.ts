@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {environment} from '@environments/environment';
 import { RecoveryTokenResponse } from '@models/request-status.model';
-import { Observable, switchMap } from 'rxjs';
+import { LoginResponse } from '@models/auth.model';
+import { Observable, switchMap, tap } from 'rxjs';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,9 @@ import { Observable, switchMap } from 'rxjs';
 export class AuthService {
 
   private http: HttpClient = inject(HttpClient);
+  private tokenService: TokenService = inject(TokenService);
+  private router: Router = inject(Router);
+
   apiUrl = environment.API_URL;
   credentials!: {
     email: string;
@@ -25,9 +31,13 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-      return this.http.post(
+      return this.http.post<LoginResponse>(
         `${this.apiUrl}/api/v1/auth/login`,
         { email, password }
+      ).pipe(
+        tap(({access_token}) => {
+          this.tokenService.saveToken(access_token)
+        })
       );
   }
 
@@ -63,5 +73,10 @@ export class AuthService {
       `${this.apiUrl}/api/v1/auth/change-password`,
       { token, newPassword }
     );
+  }
+
+  logout() {
+    this.tokenService.removeToken();
+    this.router.navigate(['/login']);
   }
 }
