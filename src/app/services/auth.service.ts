@@ -7,6 +7,7 @@ import { LoginResponse } from '@models/auth.model';
 import { Observable, switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { User } from '@models/users.model';
+import { checkToken } from '@interceptors/token.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -83,13 +84,7 @@ export class AuthService {
   }
 
   getProfile(): Observable<User>{
-    const token = this.tokenService.getToken();
-    return this.http.get<User>(`${this.apiUrl}/api/v1/auth/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+    return this.http.get<User>(`${this.apiUrl}/api/v1/auth/profile`, {context: checkToken()}
     ).pipe(
       tap(user => this.user.set(user))
     )
