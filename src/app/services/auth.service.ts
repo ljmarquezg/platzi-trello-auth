@@ -3,7 +3,7 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import {environment} from '@environments/environment';
 import { RecoveryTokenResponse } from '@models/request-status.model';
-import { LoginResponse } from '@models/auth.model';
+import { ResponseLogin } from '@models/auth.model';
 import { Observable, switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { User } from '@models/users.model';
@@ -34,12 +34,13 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-      return this.http.post<LoginResponse>(
+      return this.http.post<ResponseLogin>(
         `${this.apiUrl}/api/v1/auth/login`,
         { email, password }
       ).pipe(
-        tap(({access_token}) => {
+        tap(({access_token, refresh_token}) => {
           this.tokenService.saveToken(access_token)
+          this.tokenService.saveRefreshToken(refresh_token)
         })
       );
   }
@@ -92,5 +93,17 @@ export class AuthService {
 
   getDataUser(): User | null {
     return this.user();
+  }
+
+  refreshToken(refreshToken: string): Observable<ResponseLogin> {
+    return this.http.post<ResponseLogin>(
+      `${this.apiUrl}/api/v1/auth/refresh-token`,
+      {refreshToken}
+    ).pipe(
+      tap(({access_token, refresh_token}) => {
+        this.tokenService.saveToken(access_token)
+        this.tokenService.saveRefreshToken(refresh_token)
+      })
+    )
   }
 }

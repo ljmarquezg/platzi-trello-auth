@@ -1,27 +1,60 @@
 # Platzi Trello
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+This project is a clone of the **Trello** project management application, developed using **Angular** in standalone mode. The goal is to recreate Trello's core functionality, allowing users to manage tasks through a board-and-card system. Additionally, it includes an authentication and access control system with advanced security features to manage user sessions and route protection.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This Trello clone includes the following main features:
 
-## Code scaffolding
+- **User Registration**: Allows new users to create an account.
+- **Login**: Authenticates users so only registered users can access the application.
+- **Password Change**: Allows users to change their current password within their profile.
+- **Password Recovery**: Process for users to reset their password if they forget it.
+- **User Retrieval**: Provides a list and details of users within the application.
+- **Token Regeneration**: Security mechanism to refresh the authentication token, avoiding expired sessions.
+- **Auth Guards**: Route protection to ensure only logged-in users can access certain parts of the application.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## API
 
-## Build
+For the backend, this project uses the **Fake Trello API** hosted at [fake-trello-api.herokuapp.com](http://fake-trello-api.herokuapp.com). This API provides simulated endpoints for authentication, user management, and task handling.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technologies Used
 
-## Running unit tests
+- **Frontend**: Angular (in standalone mode) to create a modular, scalable, and highly maintainable interface.
+- **State Management**: Angular Services and `RxJS` for managing application state.
+- **Authentication**: Token-based JWT authentication provided by the Fake API.
+- **Guards**: Angular Guards to protect routes and verify if the user is authenticated before allowing access.
+- **Standalone Components and Services**: Standalone architecture in Angular for easy reusability and separation of concerns.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation and Setup
 
-## Running end-to-end tests
+To run this project locally, follow these steps:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/trello-clone-angular.git
+    ```
+2.	Navigate to the project directory:
+   ```bash
+   cd trello-clone-angular
+    ```
+3.	Install the dependencies:
+   ```bash
+   npm install
+    ```
 
-## Further help
+## Running the Project
+1.	Start the development server:
+   ```bash
+   ng serve
+    ```
+2.	Open your browser at http://localhost:4200 to view the application.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Contributions
+
+This project is open source. If you find any issues, have improvement suggestions, or want to contribute, please open an issue or submit a pull request. Contributions are very welcome!
+
+## License
+
+This project is distributed under the MIT License.
