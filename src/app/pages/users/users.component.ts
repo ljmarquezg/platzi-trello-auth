@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { DataSourceUser } from './data-source';
 import { NgClass } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
+import { UsersService } from '@services/users.service';
+import { User } from '@models/users.model';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -13,29 +16,18 @@ import { CdkTableModule } from '@angular/cdk/table';
   templateUrl: './users.component.html',
 })
 export class UsersComponent {
+  private usersService: UsersService = inject(UsersService);
+  private authService: AuthService = inject(AuthService);
+  
   dataSource = new DataSourceUser();
   columns: string[] = ['id', 'avatar', 'name', 'email'];
+  user: Signal<User | null> = signal(null);
 
-  constructor() {
-    this.dataSource.init([
-      {
-        id: 1,
-        name: 'User 1',
-        email: 'mail@mail.com',
-        avatar: 'https://api.lorem.space/image/face?w=150&h=150'
-      },
-      {
-        id: 2,
-        name: 'User 2',
-        email: 'mail2@mail.com',
-        avatar: 'https://api.lorem.space/image/face?w=150&h=150'
-      },
-      {
-        id: 3,
-        name: 'User 3',
-        email: 'mail3@mail.com',
-        avatar: 'https://api.lorem.space/image/face?w=150&h=150'
-      }
-    ]);
+  ngOnInit() {
+    console.log('chapapote');
+    this.usersService.getUsers().subscribe((users: User[]) => {
+      this.dataSource.init(users);
+    });
+    this.user = this.authService.user;
   }
 }

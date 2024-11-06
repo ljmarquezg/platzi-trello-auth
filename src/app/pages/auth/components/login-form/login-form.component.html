@@ -1,5 +1,5 @@
 <h1 class="text-center text-xl font-semi-bold pt-4 pb-8">Log In to continue</h1>
-<form novalidate class="space-y-4">
+<form [formGroup]="form" novalidate class="space-y-4" (ngSubmit)="doLogin()">
     <!-- Email -->
     <div class="relative">
         <input
@@ -20,7 +20,6 @@
         @if(form.controls.email.hasError('email')){
             <p class="font-medium text-red-500 text-xs mt-1 ml-1">This field should be a email</p>
         }
-
     }
 
     <!-- Password -->
@@ -44,13 +43,17 @@
             <p class="font-medium text-red-500 text-xs mt-1 ml-1">This field is mandatory</p>
         }
         @if(form.controls.password.hasError('minlength')){
-            <p class="font-medium text-red-500 text-xs mt-1 ml-1">This field should be greater than 6 characters</p>
+            <p class="font-medium text-red-500 text-xs mt-1 ml-1">This field should be greater than 8 characters</p>
         }
     }
 
+    @if(status === 'failed') {
+        <p class="bg-red-100 text-red-500 p-2 rounded-md text-center mb-4">Invalid credentials</p>
+    }
+    
     <div>
         <app-btn 
-            type="submit"
+            typeBtn="submit"
             color="primary"
             [loading]="status === 'loading'"
         >Login</app-btn>
