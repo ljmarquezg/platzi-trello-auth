@@ -31,23 +31,23 @@ For the backend, this project uses the **Fake Trello API** hosted at [fake-trell
 To run this project locally, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/trello-clone-angular.git
-    ```
+```bash
+git clone https://github.com/your-username/trello-clone-angular.git
+```
 2.	Navigate to the project directory:
-   ```bash
-   cd trello-clone-angular
-    ```
+```bash
+cd trello-clone-angular
+```
 3.	Install the dependencies:
-   ```bash
-   npm install
-    ```
+```bash
+npm install
+```
 
 ## Running the Project
 1.	Start the development server:
-   ```bash
-   ng serve
-    ```
+```bash
+ng serve
+```
 2.	Open your browser at http://localhost:4200 to view the application.
 
 
